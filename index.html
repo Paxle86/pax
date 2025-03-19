@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trường Tiểu Học Xuân Mai B</title>
-    <link rel="icon" type="image/x-icon" href="favicon.png">
     <style>
         * {
             margin: 0;
@@ -359,6 +358,7 @@
         @media (max-width: 1200px) {
             .container {
                 width: 100%;
+                padding: 0 20px;
             }
         }
         
@@ -377,20 +377,57 @@
                 text-align: center;
             }
             
+            .logo {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+            
             .search-box {
-                margin-top: 15px;
+                margin: 15px auto;
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .banner {
+                height: 300px;
             }
         }
         
         @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: none;
+                background: transparent;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 10px;
+                position: absolute;
+                right: 20px;
+                top: 15px;
+            }
+            
+            nav {
+                position: relative;
+            }
+            
             .main-menu {
+                display: none;
                 flex-direction: column;
+                width: 100%;
+            }
+            
+            .main-menu.active {
+                display: flex;
             }
             
             .main-menu .submenu {
                 position: static;
                 width: 100%;
                 display: none;
+                background-color: #004488;
+                padding-left: 15px;
             }
             
             .main-menu li:hover .submenu {
@@ -401,6 +438,21 @@
                 display: block;
             }
             
+            .main-menu li > a {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .main-menu li > a::after {
+                content: '+';
+                font-size: 18px;
+            }
+            
+            .main-menu li.active > a::after {
+                content: '-';
+            }
+            
             .footer-top {
                 flex-direction: column;
             }
@@ -409,8 +461,57 @@
                 margin-right: 0;
                 margin-bottom: 20px;
             }
+            
+            .school-name h1 {
+                font-size: 20px;
+            }
+            
+            .school-name p {
+                font-size: 12px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+            }
+            
+            .news-item h3 {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .banner {
+                height: 200px;
+            }
+            
+            .logo img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .school-name h1 {
+                font-size: 18px;
+            }
+            
+            .counters {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .counter {
+                width: 100%;
+            }
+            
+            .section-content {
+                padding: 15px;
+            }
         }
     </style>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <!-- Header Section -->
@@ -435,6 +536,7 @@
     <!-- Navigation Section -->
     <nav>
         <div class="container">
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
             <ul class="main-menu">
                 <li><a href="#">TRANG CHỦ</a></li>
                 <li>
@@ -483,13 +585,13 @@
             <div class="banner">
                 <div class="banner-slides">
                     <div class="slide">
-                        <img src="anh1.jpg" alt="Trường Tiểu Học Xuân Mai B">
+                        <img src="/anh1.jpg" alt="Trường Tiểu Học Xuân Mai B">
                     </div>
                     <div class="slide">
-                        <img src="anh2.jpg" alt="Hoạt động học sinh">
+                        <img src="/anh2.jpg" alt="Hoạt động học sinh">
                     </div>
                     <div class="slide">
-                        <img src="anh3.jpg" alt="Hoạt động giáo viên">
+                        <img src="/anh3.jpg" alt="Hoạt động giáo viên">
                     </div>
                 </div>
                 <div class="banner-controls">
@@ -582,7 +684,7 @@
                 <div class="section-content">
                     <div class="facebook-box">
                         <p>Kết nối với chúng tôi qua Facebook</p>
-                        <img src="facebook.jpg" alt="Facebook Page Preview">
+                        <img src="/facebook.jpg" alt="Facebook Page Preview" style="width: 120px;">
                     </div>
                 </div>
             </div>
@@ -597,7 +699,7 @@
                     <h3>TRƯỜNG TIỂU HỌC XUÂN MAI B</h3>
                     <p>Địa chỉ: Thị trấn Xuân Mai, Huyện Chương Mỹ, Hà Nội</p>
                     <p>Điện thoại: 024.1234.5678</p>
-                    <p>Email: info@pax.edu.vn</p>
+                    <p>Email: thxuanmaiB@hanoiedu.vn</p>
                 </div>
                 <div class="footer-section">
                     <h3>LIÊN KẾT HỮU ÍCH</h3>
@@ -613,7 +715,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2015 Trường Tiểu Học Xuân Mai B. Tất cả các quyền được bảo lưu.</p>
+                <p>© 2025 Trường Tiểu Học Xuân Mai B. Tất cả các quyền được bảo lưu.</p>
             </div>
         </div>
     </footer>
@@ -659,40 +761,82 @@
             });
             
             // Mobile Menu Toggle Functionality
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mainMenu = document.querySelector('.main-menu');
             const menuItems = document.querySelectorAll('.main-menu > li');
             
-            if (window.innerWidth <= 768) {
-                menuItems.forEach(item => {
-                    if (item.querySelector('.submenu')) {
-                        const link = item.querySelector('a');
-                        
-                        link.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            item.classList.toggle('active');
-                        });
-                    }
-                });
-            }
-        });
-        
-        // Counter Animation
-        const counters = document.querySelectorAll('.counter p');
-        
-        counters.forEach(counter => {
-            const target = parseInt(counter.innerText);
-            let count = 0;
-            const increment = Math.ceil(target / 30);
-            
-            function updateCount() {
-                if (count < target) {
-                    count += increment;
-                    if (count > target) count = target;
-                    counter.innerText = count.toLocaleString();
-                    setTimeout(updateCount, 30);
+            // Show/hide mobile menu toggle based on screen size
+            function handleResize() {
+                if (window.innerWidth <= 768) {
+                    mobileMenuToggle.style.display = 'block';
+                } else {
+                    mobileMenuToggle.style.display = 'none';
+                    mainMenu.classList.add('active');
                 }
             }
             
-            updateCount();
+            // Initial call and add resize listener
+            handleResize();
+            window.addEventListener('resize', handleResize);
+            
+            // Toggle menu on mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mainMenu.classList.toggle('active');
+            });
+            
+            // Handle submenu toggling
+            menuItems.forEach(item => {
+                if (item.querySelector('.submenu')) {
+                    const link = item.querySelector('a');
+                    
+                    link.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            item.classList.toggle('active');
+                            
+                            // Close other open submenus
+                            menuItems.forEach(otherItem => {
+                                if (otherItem !== item && otherItem.classList.contains('active')) {
+                                    otherItem.classList.remove('active');
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Counter Animation - with IntersectionObserver for better performance
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.counter p');
+            
+            // Only animate counters when they are visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.innerText);
+                        let count = 0;
+                        const increment = Math.ceil(target / 30);
+                        
+                        function updateCount() {
+                            if (count < target) {
+                                count += increment;
+                                if (count > target) count = target;
+                                counter.innerText = count.toLocaleString();
+                                setTimeout(updateCount, 30);
+                            }
+                        }
+                        
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
         });
     </script>
 </body>
